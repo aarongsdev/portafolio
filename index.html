@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio | Aaron Güesta Santos</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --primary-color: #00d4ff;
+      --secondary-color: #0099cc;
+      --accent-color: #ff6b35;
+      --bg-dark: #0a0a0a;
+      --bg-card: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --border-color: #333;
+      --gradient-1: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+      --gradient-2: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navbar moderna */
+    .navbar {
+      background: rgba(10, 10, 10, 0.95) !important;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-link {
+      color: var(--text-secondary) !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary-color) !important;
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .profile-placeholder {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      box-shadow: var(--shadow-glow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      margin: 0 auto;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-placeholder:hover {
+      transform: scale(1.05);
+    }
+
+    .profile-placeholder i {
+      font-size: 8rem;
+    }
+
+    .profile-img {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary-color);
+      box-shadow: var(--shadow-glow);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Cards */
+    .modern-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .modern-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), var(--shadow-glow);
+      border-color: var(--primary-color);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gradient-1);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2rem;
+      margin-left: 1rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.75rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary-color);
+    }
+
+    .timeline-content {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Project Cards */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-glow);
+      border-color: var(--primary-color);
+    }
+
+    /* Carrusel de imágenes - CORREGIDO */
+    .project-carousel {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+      background: var(--bg-card);
+    }
+
+    .project-carousel .carousel-inner {
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    .project-carousel .carousel-item {
+      height: 320px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26, 26, 26, 0.8) 100%);
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+
+    .project-carousel .carousel-item.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .project-carousel .carousel-item img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Controles del carrusel mejorados */
+    .project-carousel .carousel-control-prev,
+    .project-carousel .carousel-control-next {
+      width: 50px;
+      height: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 15;
+    }
+
+    .project-carousel .carousel-control-prev {
+      left: 15px;
+    }
+
+    .project-carousel .carousel-control-next {
+      right: 15px;
+    }
+
+    .project-card:hover .carousel-control-prev,
+    .project-card:hover .carousel-control-next {
+      opacity: 0.8;
+    }
+
+    .project-carousel .carousel-control-prev:hover,
+    .project-carousel .carousel-control-next:hover {
+      opacity: 1 !important;
+    }
+
+    .project-carousel .carousel-control-prev-icon,
+    .project-carousel .carousel-control-next-icon {
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      background-size: 60% 60%;
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Indicadores del carrusel */
+    .project-carousel .carousel-indicators {
+      margin-bottom: 15px;
+      z-index: 10;
+    }
+
+    .project-carousel .carousel-indicators [data-bs-target] {
+      background-color: var(--primary-color);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin: 0 5px;
+      opacity: 0.5;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .project-carousel .carousel-indicators .active {
+      opacity: 1;
+      transform: scale(1.2);
+      box-shadow: 0 0 15px var(--primary-color);
+    }
+
+    /* Para proyectos con una sola imagen */
+    .single-image-container {
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26, 26, 26, 0.8) 100%);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .single-image-container img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Certificate Modal */
+    .certificate-modal .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+    }
+
+    .certificate-img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      pointer-events: none;
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Buttons */
+    .btn-primary-custom {
+      background: var(--gradient-1);
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+      color: white;
+    }
+
+    .btn-outline-custom {
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 0.75rem 2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-custom:hover {
+      background: var(--primary-color);
+      color: var(--bg-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Contact Section */
+    .contact-card {
+      background: var(--gradient-1);
+      border-radius: 25px;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+    }
+
+    .contact-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--bg-dark);
+      text-decoration: none;
+    }
+
+    /* Skills */
+    .skill-tag {
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--primary-color);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      display: inline-block;
+      margin: 0.25rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-section {
+        text-align: center;
+      }
+      
+      .profile-placeholder,
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 2rem;
+      }
+      
+      .profile-placeholder i {
+        font-size: 6rem !important;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .project-carousel .carousel-control-prev,
+      .project-carousel .carousel-control-next {
+        opacity: 0.6;
+      }
+    }
+
+    /* Prevent image saving */
+    .no-save {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+      pointer-events: none;
+    }
+
+    .certificate-card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .certificate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#perfil">Aaron Güesta</a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <i class="bi bi-list text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#perfil">Perfil</a></li>
+          <li class="nav-item"><a class="nav-link" href="#estudios">Estudios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experiencia">Experiencia</a></li>
+          <li class="nav-item"><a class="nav-link" href="#certificados">Certificados</a></li>
+          <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#idiomas">Idiomas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero/Perfil Section -->
+    <section id="perfil" class="hero-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 hero-content">
+            <h1 class="hero-title">Aaron Güesta Santos</h1>
+            <p class="hero-subtitle">Desarrollador de Aplicaciones Multiplataforma especializado en Mainframe</p>
+            <p class="mb-4 text-secondary">Técnico Superior en DAM con especialización en COBOL, JCL, CICS, DB2 y SQL Avanzado. Máster COBOL por LearnQuest - IBM. Experiencia en proyectos bancarios con Viewnext y Banco Santander.</p>
+            
+            <div class="mb-4">
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">C#</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">COBOL</span>
+                <span class="skill-tag">JCL</span>
+                <span class="skill-tag">CICS</span>
+                <span class="skill-tag">DB2</span>
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">NoSQL</span>
+                <span class="skill-tag">XQuery</span>
+                <span class="skill-tag">XPath</span>
+                <span class="skill-tag">Spring MVC</span>
+                <span class="skill-tag">Angular</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">JPA</span>
+                <span class="skill-tag">Hibernate</span>
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">Android Studio</span>
+                <span class="skill-tag">Unity</span>
+                <span class="skill-tag">Mainframe</span>
+            </div>
+
+            <div class="d-flex gap-3 flex-wrap">
+              <a href="#contacto" class="btn btn-primary-custom">
+                <i class="bi bi-envelope me-2"></i>Contactar
+              </a>
+              <a href="cv/AaronGuestaSantosCV.pdf" download="AaronGuestaSantosCV.pdf" class="btn btn-outline-custom">
+                <i class="bi bi-download me-2"></i>Descargar CV
+              </a>
+              <a href="https://www.linkedin.com/in/aaron-g%C3%BCesta-santos-6b42a2344/" target="_blank" class="btn btn-outline-custom">
+                <i class="bi bi-linkedin me-2"></i>LinkedIn
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-4 text-center">
+            <img src="img/perfil.jpg" alt="Aaron Güesta Santos" class="profile-img">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estudios -->
+    <section id="estudios" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Estudios</h2>
+        <div class="timeline" id="estudios-container">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experiencia" class="py-5 bg-dark">
+      <div class="container">
+        <h2 class="section-title">Experiencia</h2>
+        <div class="timeline" id="experiencia-container">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificados -->
+    <section id="certificados" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Certificados</h2>
+        <div class="row" id="certificados-container">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section id="proyectos" class="py-5 bg-dark">
+      <div class="container">
+        <h2 class="section-title">Proyectos</h2>
+        <div class="row" id="proyectos-container">
+          <!-- Cargado dinámicamente -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Idiomas -->
+    <section id="idiomas" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Idiomas</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="modern-card text-center">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <i class="bi bi-chat-dots display-4 text-primary mb-3"></i>
+                  <h4>Castellano</h4>
+                  <p class="text-secondary">Nativo</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <i class="bi bi-globe display-4 text-primary mb-3"></i>
+                  <h4>Inglés</h4>
+                  <p class="text-secondary">Nivel Medio</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="py-5">
+      <div class="container">
+        <h2 class="section-title">Contacto</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="contact-card">
+              <h3 class="mb-4">¡Trabajemos juntos!</h3>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <i class="bi bi-envelope-fill display-6 mb-3"></i>
+                  <p class="mb-0">
+                    <a href="mailto:aarongues30@gmail.com" class="contact-link">aarongues30@gmail.com</a>
+                  </p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <i class="bi bi-telephone-fill display-6 mb-3"></i>
+                  <p class="mb-0">
+                    <a href="tel:+34630592262" class="contact-link">+34 630 592 262</a>
+                  </p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <i class="bi bi-file-earmark-pdf-fill display-6 mb-3"></i>
+                  <p class="mb-0">
+                    <a href="cv/Aaron_Guesta_Santos_CV.pdf" download="Aaron_Guesta_Santos_CV.pdf" class="contact-link">Descargar CV</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 text-center text-secondary">
+    <div class="container">
+      <p class="mb-0">© 2025 Aaron Güesta Santos. Desarrollado con ❤️</p>
+    </div>
+  </footer>
+
+  <!-- Modal para Certificados -->
+  <div class="modal fade certificate-modal" id="certificateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title text-primary" id="certificateModalLabel"></h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="certificateModalImg" class="certificate-img no-save" alt="Certificado">
+          <p id="certificateModalDesc" class="mt-3 text-secondary"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // JSON de estudios
+    const estudios = [
+      {
+        id: 1,
+        titulo: "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+        institucion: "IES Augustóbriga",
+        fecha: "2023 - 2025",
+        descripcion: "Formación especializada en desarrollo de aplicaciones para múltiples plataformas, incluyendo tecnologías web, móviles y de escritorio."
+      },
+      {
+        id: 2,
+        titulo: "Bachillerato",
+        institucion: "IES Albalat",
+        fecha: "2021 - 2023",
+        descripcion: "Formación secundaria con orientación tecnológica."
+      }
+    ];
+
+    // JSON de experiencia
+    const experiencia = [
+      {
+        id: 1,
+        puesto: "Programador COBOL - Prácticas",
+        empresa: "Viewnext, Salamanca",
+        fecha: "20/03/2025 – 15/06/2025",
+        descripcion: "Desarrollo y mantenimiento de aplicaciones mainframe para proyectos del Banco Santander. Trabajo con DB2, pruebas unitarias y optimización de código COBOL.",
+        tecnologias: ["COBOL", "JCL", "CICS", "DB2", "SQL", "Mainframe"]
+      }
+    ];
+
+    // JSON de certificados
+    const certificados = [
+      {
+        id: 1,
+        nombre: "Máster VIEWNEXT En COBOL-HOST (VIEWNEXT-30h)",
+        descripcion: "Certificación avanzada en programación COBOL para sistemas mainframe, incluyendo JCL, CICS y DB2.",
+        imagen: "imgCertificados/masterCobolHost.png",
+        tipo: "imagen"
+      },
+      {
+        id: 2,
+        nombre: "Formación Específica Master COBOL - Santander (VIEWNEXT-40h)",
+        descripcion: "Certificación de formación en el entorno host del Banco Santander",
+        imagen: "imgCertificados/formacionEspecificaMasterCobolSantander.png",
+        tipo: "imagen"
+      },
+      {
+        id: 3,
+        nombre: "MOD-051 SQL Avanzado (VIEWNEXT-8h)",
+        descripcion: "Formación avanzada en consultas y gestión de bases de datos SQL en entornos mainframe.",
+        imagen: "imgCertificados/sqlAvanzado.png",
+        tipo: "imagen"
+      },
+    {
+        id: 4,
+        nombre: "Seguridad de la Información (VIEWNEXT-2h)",
+        descripcion: "Formación en desarrollo COBOL para entornos host con énfasis en la seguridad de la información, control de accesos, gestión de privilegios y protección de datos en sistemas mainframe.",
+        imagen: "imgCertificados/seguridadInformacion.png",
+        tipo: "imagen"
+    },
+    {
+        id: 5,
+        nombre: "Introducción a la Gestión Ambiental (VIEWNEXT-2h)",
+        descripcion: "Curso introductorio sobre principios de sostenibilidad y gestión ambiental aplicada al entorno laboral.",
+        imagen: "imgCertificados/ambiental.png",
+        tipo: "imagen"
+    },
+    {
+        id: 6,
+        nombre: "Prevención de Riesgos Laborales P.V.D. B (VIEWNEXT-2h)",
+        descripcion: "Formación básica en prevención de riesgos laborales, especialmente en el uso de pantallas de visualización de datos (PVD).",
+        imagen: "imgCertificados/PRL.png",
+        tipo: "imagen"
+    },
+    {
+        id: 7,
+        nombre: "Introducción al CICS (VIEWNEXT-18h)",
+        descripcion: "Conocimientos básicos en gestión de transacciones y desarrollo de aplicaciones COBOL en sistemas mainframe mediante CICS.",
+        imagen: "imgCertificados/cics.png",
+        tipo: "imagen"
+    },
+    {
+        id: 8,
+        nombre: "JCL Básico (VIEWNEXT-20h)",
+        descripcion: "Formación en conceptos fundamentales de JCL para la gestión y automatización de procesos en entornos mainframe.",
+        imagen: "imgCertificados/jclBasico.png",
+        tipo: "imagen"
+    },
+    {
+        id: 9,
+        nombre: "IBM COBOL Basics (LearnQuest)",
+        descripcion: "Curso introductorio al lenguaje COBOL, impartido por LearnQuest para IBM. Incluye fundamentos sintácticos, estructuras básicas y primeros pasos en entornos mainframe.",
+        imagen: "imgCertificados/basics.png",
+        tipo: "imagen"
+    },
+    {
+        id: 10,
+        nombre: "IBM COBOL CORE (LearnQuest)",
+        descripcion: "Formación central del plan de estudios COBOL de IBM, centrada en estructuras de control, procedimientos, y manipulación de datos en aplicaciones empresariales.",
+        imagen: "imgCertificados/cobolcore.png",
+        tipo: "imagen"
+    },
+    {
+        id: 11,
+        nombre: "IBM COBOL Data and File Management (LearnQuest)",
+        descripcion: "Curso especializado en la gestión de archivos y datos con COBOL. Incluye prácticas de acceso secuencial, indexado y uso eficiente de estructuras de almacenamiento.",
+        imagen: "imgCertificados/fileManagement.png",
+        tipo: "imagen"
+    },
+    {
+        id: 12,
+        nombre: "IBM COBOL Software Development Process (LearnQuest)",
+        descripcion: "Curso sobre el ciclo completo de desarrollo de software con COBOL, abarcando análisis, diseño, codificación, pruebas y mantenimiento.",
+        imagen: "imgCertificados/development.png",
+        tipo: "imagen"
+    },
+    
+
+    ];
+
+    // JSON de proyectos
+    const proyectos = [
+  {
+    id: 1,
+    nombre: 'Brujería Moderna',
+    descripcion: 'Brujería Moderna es una tienda online desarrollada con Angular, enfocada en productos esotéricos como libros, cristales y rituales. Ofrece una experiencia de compra moderna e intuitiva.',
+    imagenes: ['proyectos/img1bru.png', 'proyectos/img2bru.png', 'proyectos/img3bru.png'],
+    enlace: 'https://brujeriamoderna.wuaze.com/?i=1',
+    tecnologias: ['Angular', 'CSS3', 'JavaScript', 'Bootstrap', 'PHP', 'HTML5', 'API REST', 'SQL']
+  },
+  {
+    id: 2,
+    nombre: 'RentCar',
+    descripcion: 'Renta Car es una aplicación de alquiler de coches desarrollada con Angular que permite consultar y reservar vehículos. Incluye calendario interactivo y gestión de reservas, con backend PHP y base de datos MongoDB.',
+    imagenes: ['proyectos/img1rent.png', 'proyectos/img2rent.png', 'proyectos/img3rent.png', 'proyectos/img4rent.png'],
+    enlace: '',
+    tecnologias: ['HTML5', 'CSS3', 'JavaScript', 'Angular', 'API REST (PHP)', 'MongoDB', 'Bootstrap']
+  },
+  {
+    id: 3,
+    nombre: 'MotorHub Android',
+    descripcion: 'MotorHub es una aplicación móvil diseñada para conectar a motociclistas mediante la creación y participación en rutas y quedadas. Permite explorar, crear y gestionar eventos desde Android.',
+    imagenes: ['proyectos/img1motT.png'],
+    enlace: '',
+    tecnologias: ['Android Studio', 'Java', 'PHP', 'API REST', 'SQL' , 'AWS']
+  },
+  {
+    id: 4,
+    nombre: 'MotorHub Escritorio',
+    descripcion: 'MotorHub es una aplicación de escritorio desarrollada en C#, enfocada en conectar a motociclistas mediante la creación y visualización de rutas y eventos.',
+    imagenes: ['proyectos/img1motO.png'],
+    enlace: '',
+    tecnologias: ['C#', 'SQL' , 'AWS']
+  },
+  {
+    id: 5,
+    nombre: 'Horarios Telepi',
+    descripcion: 'Aplicación web de gestión de horarios desarrollada para facilitar la organización interna en el entorno laboral de Telepizza. Permite a los empleados consultar sus turnos y, en el caso de usuarios con rol administrador, asignar y modificar los horarios del resto del personal. Esta herramienta fue creada de forma proactiva como aporte al equipo de trabajo para mejorar la coordinación y la planificación semanal.',
+    imagenes: ['proyectos/img1hor.png', 'proyectos/img2hor.png', 'proyectos/img3hor.png'],
+    enlace: '',
+    tecnologias: ['React', 'MongoDB' , 'Node' ]
+  }
+];
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cargar estudios
+      const estudiosContainer = document.getElementById('estudios-container');
+      estudios.forEach(estudio => {
+        const timelineItem = document.createElement('div');
+        timelineItem.className = 'timeline-item';
+        
+        timelineItem.innerHTML = `
+          <div class="timeline-content">
+            <h4 class="text-primary mb-2">${estudio.titulo}</h4>
+            <p class="text-secondary mb-1"><i class="bi bi-building me-2"></i>${estudio.institucion}</p>
+            <p class="text-secondary mb-2"><i class="bi bi-calendar me-2"></i>${estudio.fecha}</p>
+            ${estudio.descripcion ? `<p class="mb-0">${estudio.descripcion}</p>` : ''}
+          </div>
+        `;
+        
+        estudiosContainer.appendChild(timelineItem);
+      });
+
+      // Cargar experiencia
+      const experienciaContainer = document.getElementById('experiencia-container');
+      experiencia.forEach(exp => {
+        const timelineItem = document.createElement('div');
+        timelineItem.className = 'timeline-item';
+        
+        const tecnologiasHtml = exp.tecnologias ? 
+          `<div class="mt-3">${exp.tecnologias.map(tech => `<span class="skill-tag">${tech}</span>`).join('')}</div>` : '';
+        
+        timelineItem.innerHTML = `
+          <div class="timeline-content">
+            <h4 class="text-primary mb-2">${exp.puesto}</h4>
+            <p class="text-secondary mb-2"><i class="bi bi-building me-2"></i>${exp.empresa}</p>
+            <p class="text-secondary mb-3"><i class="bi bi-calendar me-2"></i>${exp.fecha}</p>
+            <p class="mb-0">${exp.descripcion}</p>
+            ${tecnologiasHtml}
+          </div>
+        `;
+        
+        experienciaContainer.appendChild(timelineItem);
+      });
+
+      // Cargar certificados
+      const certificadosContainer = document.getElementById('certificados-container');
+      certificados.forEach(cert => {
+        const col = document.createElement('div');
+        col.className = 'col-lg-4 col-md-6 mb-4';
+        
+        const icono = cert.tipo === 'pdf' ? 'bi-file-earmark-pdf' : 'bi-award';
+        const accionTexto = cert.tipo === 'pdf' ? 'Abrir PDF' : 'Ver certificado';
+        const eventoClick = cert.tipo === 'pdf' ? 
+          `onclick="window.open('${cert.imagen}', '_blank')"` : 
+          `data-bs-toggle="modal" data-bs-target="#certificateModal" data-name="${cert.nombre}" data-desc="${cert.descripcion}" data-img="${cert.imagen}" data-tipo="${cert.tipo}"`;
+        
+        col.innerHTML = `
+          <div class="modern-card certificate-card h-100" ${eventoClick}>
+            <div class="text-center">
+              <i class="bi ${icono} display-4 text-primary mb-3"></i>
+              <h5 class="text-primary">${cert.nombre}</h5>
+              <p class="text-secondary">${cert.descripcion}</p>
+              <small class="text-primary">
+                <i class="bi bi-eye me-1"></i>${accionTexto}
+              </small>
+            </div>
+          </div>
+        `;
+        
+        certificadosContainer.appendChild(col);
+      });
+
+      // Cargar proyectos - CORREGIDO
+      const proyectosContainer = document.getElementById('proyectos-container');
+      proyectos.forEach(proyecto => {
+        const col = document.createElement('div');
+        col.className = 'col-lg-6 mb-4';
+        
+        const tecnologiasHtml = proyecto.tecnologias.map(tech => 
+          `<span class="skill-tag">${tech}</span>`
+        ).join('');
+        
+        const enlaceHtml = proyecto.enlace ? 
+          `<a href="${proyecto.enlace}" target="_blank" class="btn btn-primary-custom mt-3">
+            <i class="bi bi-external-link me-2"></i>Ver proyecto
+          </a>` : '';
+
+        // Crear carrusel si hay múltiples imágenes, sino imagen única
+        let imagenesHtml = '';
+        if (proyecto.imagenes.length > 1) {
+          const carouselId = `carousel-${proyecto.id}`;
+          
+          const slidesHtml = proyecto.imagenes.map((imagen, index) => 
+            `<div class="carousel-item ${index === 0 ? 'active' : ''}">
+              <img src="${imagen}" alt="${proyecto.nombre} - Imagen ${index + 1}" onerror="this.parentElement.innerHTML='<div class=&quot;text-center text-secondary p-5&quot;><i class=&quot;bi bi-image display-1&quot;></i><p class=&quot;mt-2&quot;>Imagen no disponible</p></div>'">
+            </div>`
+          ).join('');
+
+          const indicatorsHtml = proyecto.imagenes.map((_, index) => 
+            `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${index}" ${index === 0 ? 'class="active" aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>`
+          ).join('');
+
+          imagenesHtml = `
+            <div id="${carouselId}" class="carousel slide project-carousel" data-bs-ride="false">
+              <div class="carousel-indicators">
+                ${indicatorsHtml}
+              </div>
+              <div class="carousel-inner">
+                ${slidesHtml}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+              </button>
+            </div>
+          `;
+        } else {
+          // Una sola imagen
+          imagenesHtml = `
+            <div class="single-image-container">
+              <img src="${proyecto.imagenes[0]}" alt="${proyecto.nombre}" onerror="this.parentElement.innerHTML='<div class=&quot;text-center text-secondary p-5&quot;><i class=&quot;bi bi-image display-1&quot;></i><p class=&quot;mt-2&quot;>Imagen no disponible</p></div>'">
+            </div>
+          `;
+        }
+        
+        col.innerHTML = `
+          <div class="project-card h-100">
+            ${imagenesHtml}
+            <div class="p-4">
+              <h5 class="text-primary mb-3">${proyecto.nombre}</h5>
+              <p class="text-secondary mb-3">${proyecto.descripcion}</p>
+              <div class="mb-3">${tecnologiasHtml}</div>
+              ${enlaceHtml}
+            </div>
+          </div>
+        `;
+        
+        proyectosContainer.appendChild(col);
+      });
+
+      // Inicializar carruseles - MEJORADO
+      setTimeout(() => {
+        document.querySelectorAll('.carousel').forEach((carousel, index) => {
+          // Destruir cualquier instancia previa
+          const existingCarousel = bootstrap.Carousel.getInstance(carousel);
+          if (existingCarousel) {
+            existingCarousel.dispose();
+          }
+          
+          // Crear nueva instancia
+          const carouselInstance = new bootstrap.Carousel(carousel, {
+            interval: false, // Desactivar auto-play
+            wrap: true,
+            pause: false,
+            ride: false
+          });
+
+          // Agregar event listeners para debug
+          carousel.addEventListener('slide.bs.carousel', function(e) {
+            console.log(`Carrusel ${carousel.id}: cambiando de ${e.from} a ${e.to}`);
+          });
+
+          carousel.addEventListener('slid.bs.carousel', function(e) {
+            console.log(`Carrusel ${carousel.id}: cambio completado a ${e.to}`);
+          });
+        });
+      }, 1000);
+
+      // Modal de certificados
+      const certificateModal = document.getElementById('certificateModal');
+      if (certificateModal) {
+        certificateModal.addEventListener('show.bs.modal', function(event) {
+          const button = event.relatedTarget;
+          const name = button.getAttribute('data-name');
+          const desc = button.getAttribute('data-desc');
+          const img = button.getAttribute('data-img');
+          const tipo = button.getAttribute('data-tipo');
+          
+          document.getElementById('certificateModalLabel').textContent = name;
+          document.getElementById('certificateModalDesc').textContent = desc;
+          
+          // Solo mostrar imagen si no es PDF
+          if (tipo !== 'pdf') {
+            document.getElementById('certificateModalImg').src = img;
+            document.getElementById('certificateModalImg').style.display = 'block';
+          } else {
+            document.getElementById('certificateModalImg').style.display = 'none';
+          }
+          
+          // Prevenir guardado de imagen
+          const imgElement = document.getElementById('certificateModalImg');
+          imgElement.addEventListener('contextmenu', e => e.preventDefault());
+          imgElement.addEventListener('dragstart', e => e.preventDefault());
+        });
+      }
+
+      // Smooth scroll para navegación
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+          if (window.scrollY > 50) {
+            navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+          } else {
+            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+          }
+        }
+      });
+
+      // Prevenir guardado de imágenes de certificados
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.classList.contains('no-save')) {
+          e.preventDefault();
+        }
+      });
+      
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.classList.contains('no-save')) {
+          e.preventDefault();
+        }
+      });
+
+      // Navegación activa
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      function updateActiveNav() {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.offsetHeight;
+          if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNav);
+      updateActiveNav(); // Llamar una vez al cargar
+    });
+
+    // Funciones globales para manejar errores de imagen
+    window.handleImageError = function(img) {
+      img.style.display = 'none';
+      const placeholder = document.createElement('div');
+      placeholder.className = 'text-center text-secondary p-5';
+      placeholder.innerHTML = '<i class="bi bi-image display-1"></i><p class="mt-2">Imagen no disponible</p>';
+      img.parentNode.replaceChild(placeholder, img);
+    };
+
+    // Agregar manejo de errores a todas las imágenes
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        document.querySelectorAll('img').forEach(img => {
+          img.addEventListener('error', function() {
+            handleImageError(this);
+          });
+        });
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
