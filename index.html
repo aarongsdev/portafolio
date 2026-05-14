@@ -4,25 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PORTAFOLIO | Aaron Güesta Santos — COBOL Developer</title>
-  <!-- Loader inline — fuente de sistema, sin dependencias externas -->
   <style>
     html,body{margin:0;padding:0;background:#000;}
 
-    /* ── LOADER ── todo en Courier New, sin Bootstrap */
     #loader{
       position:fixed;inset:0;z-index:99999;background:#000;
-      display:block;                        /* NO flex, NO centrado moderno */
+      display:block;
       font-family:'Courier New',Courier,monospace;
       color:#00ff41;
       padding:0;
-      /* scanlines */
       background-image:repeating-linear-gradient(
         0deg,transparent,transparent 3px,
         rgba(0,255,65,.015) 3px,rgba(0,255,65,.015) 4px
       );
     }
 
-    /* barra de sistema arriba */
     #ld-sysbar{
       background:#00ff41;color:#000;
       font-size:.72rem;letter-spacing:1px;
@@ -30,7 +26,6 @@
       display:flex;justify-content:space-between;
     }
 
-    /* área de texto de la terminal */
     #ld-screen{
       padding:.8rem 1.2rem .4rem;
       font-size:clamp(.75rem,1.9vw,.9rem);
@@ -39,7 +34,6 @@
       min-height:calc(100vh - 8rem);
     }
 
-    /* línea de entrada TSO */
     #ld-cmdline{
       border-top:1px solid #005a18;
       padding:.5rem 1.2rem;
@@ -52,14 +46,12 @@
     #ld-cur{color:#00ff41;animation:cur .6s step-end infinite;}
     @keyframes cur{50%{opacity:0}}
 
-    /* barra de progreso */
     #ld-progbar{
       height:4px;background:#010e01;
       border-top:1px solid #005a18;
     }
     #ld-prog{height:100%;width:0%;background:#00ff41;transition:width .18s linear;}
 
-    /* status line */
     #ld-statusline{
       padding:.3rem 1.2rem;
       font-size:.62rem;color:#00a828;letter-spacing:1px;
@@ -68,7 +60,6 @@
     }
     #ld-pct{color:#ffb000;}
 
-    /* colores de texto */
     .lg{color:#00ff41;}
     .ld{color:#005a18;}
     .la{color:#ffb000;}
@@ -100,7 +91,6 @@
 
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    /* ============ MAIN SITE ============ */
     body {
       background: var(--bg);
       color: var(--green);
@@ -112,14 +102,12 @@
     }
     body.visible { opacity: 1; }
 
-    /* Scanlines overlay */
     body::before {
       content: '';
       position: fixed; inset: 0; pointer-events: none; z-index: 1000;
       background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px);
     }
 
-    /* ---- NAVBAR ---- */
     .navbar {
       background: rgba(2,8,2,0.99) !important;
       backdrop-filter: blur(14px);
@@ -171,7 +159,6 @@
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300ff41' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
     }
 
-    /* ---- HERO ---- */
     .hero-section {
       min-height: 100vh;
       display: flex; align-items: center;
@@ -238,7 +225,6 @@
       letter-spacing: 1px;
     }
 
-    /* ---- SECTION TITLES ---- */
     .section-title {
       font-family: var(--font-vt);
       font-size: clamp(2rem, 4vw, 3rem);
@@ -253,7 +239,6 @@
     .section-title::after  { content: ' //'; color: var(--green-dim); font-family: var(--font-mono); font-size: 0.5em; vertical-align: middle; }
     section { scroll-margin-top: var(--navbar-h); }
 
-    /* ---- CARDS ---- */
     .modern-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -276,7 +261,6 @@
     }
     .modern-card:hover::before { opacity: 1; }
 
-    /* ---- TIMELINE ---- */
     .timeline { position: relative; padding-left: 2rem; }
     .timeline::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
@@ -301,7 +285,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* ---- SKILL TAGS ---- */
     .skill-tag {
       font-family: var(--font-mono);
       font-size: 0.72rem;
@@ -327,7 +310,6 @@
       box-shadow: 0 0 8px rgba(255,176,0,0.3);
     }
 
-    /* ---- BUTTONS ---- */
     .btn-green {
       font-family: var(--font-mono);
       font-size: 0.82rem;
@@ -363,7 +345,6 @@
       box-shadow: 0 0 20px rgba(255,176,0,0.4);
     }
 
-    /* ---- PROJECTS ---- */
     .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -426,7 +407,6 @@
     }
     .project-desc { color: #4a8a4a; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
 
-    /* ---- CERTIFICATES ---- */
     .certificate-card {
       cursor: pointer; transition: all 0.3s ease;
     }
@@ -436,7 +416,6 @@
     .cert-desc { color: #4a8a4a; font-size: 0.85rem; }
     .cert-view { font-family: var(--font-mono); color: var(--amber); font-size: 0.75rem; margin-top: 0.8rem; }
 
-    /* ---- MODAL ---- */
     .certificate-modal .modal-content {
       background: var(--bg-card); border: 1px solid var(--green);
       border-radius: 0;
@@ -445,7 +424,6 @@
     .certificate-modal .modal-title { font-family: var(--font-mono); color: var(--green); font-size: 0.9rem; }
     .certificate-img { width:100%; border:1px solid var(--border); filter: sepia(20%) hue-rotate(90deg) saturate(0.5); pointer-events:none; user-select:none; }
 
-    /* ---- CONTACT ---- */
     .contact-card {
       background: var(--bg-card);
       border: 1px solid var(--green);
@@ -466,13 +444,11 @@
     .contact-link { font-family: var(--font-mono); color: var(--green); font-size: 0.9rem; text-decoration: none; }
     .contact-link:hover { color: var(--amber); text-shadow: 0 0 8px var(--amber); }
 
-    /* ---- LANGUAGES ---- */
     .lang-card { text-align: center; }
     .lang-icon { font-size: 3rem; color: var(--amber); margin-bottom: 0.8rem; }
     .lang-name { font-family: var(--font-mono); color: var(--green); font-size: 1rem; letter-spacing: 2px; }
     .lang-level { color: var(--green-dim); font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.3rem; }
 
-    /* ---- COBOL DATA-FUN SECTION ---- */
     .cobol-card {
       background: #000;
       border: 1px solid var(--green);
@@ -495,7 +471,6 @@
     .cobol-value    { color: #fff; }
     .cobol-comment  { color: #396e39; font-style: italic; }
 
-    /* ---- FOOTER ---- */
     footer {
       border-top: 1px solid var(--border);
       font-family: var(--font-mono); font-size: 0.78rem;
@@ -503,72 +478,53 @@
       padding: 1.5rem;
     }
 
-    /* ---- SECTION BG ALTERNATION ---- */
     .section-alt { background: rgba(0,255,65,0.015); }
 
-    /* ---- NAVBAR TOGGLER ---- */
     .navbar-toggler { border: 1px solid var(--border) !important; }
 
-    /* ---- ANIMATIONS ---- */
     @keyframes flicker {
       0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:0.8} 94%{opacity:1} 96%{opacity:0.9} 97%{opacity:1}
     }
     .hero-title { animation: flicker 6s infinite; }
 
-    /* ============ RESPONSIVE MÓVIL ============ */
     @media (max-width: 768px) {
-
-      /* loader */
       #ld-sysbar { font-size: .55rem; padding: .2rem .6rem; }
       #ld-screen  { padding: .5rem .7rem .2rem; font-size: .72rem; min-height: auto; }
       #ld-cmdline { padding: .4rem .7rem; font-size: .72rem; }
       #ld-statusline { padding: .25rem .7rem; font-size: .55rem; }
 
-      /* hero */
       .hero-title { font-size: clamp(2rem, 10vw, 3rem); letter-spacing: 2px; }
       .hero-subtitle { font-size: .78rem; letter-spacing: 1px; }
       .hero-desc { font-size: .9rem; }
       .profile-img { width: 160px; height: 160px; }
       .profile-frame { margin-bottom: 1.5rem; }
 
-      /* sección COBOL ID */
       .cobol-card { font-size: .7rem; padding: 1rem; }
 
-      /* cards */
       .modern-card { padding: 1.2rem; }
 
-      /* timeline */
       .timeline { padding-left: 1.2rem; }
       .timeline-item { margin-left: .5rem; }
       .timeline-content h4 { font-size: .88rem; }
 
-      /* proyectos — 1 columna */
       .project-carousel, .single-image-container { height: 200px; }
 
-      /* carrusel controles siempre visibles en móvil */
       .project-carousel .carousel-control-prev,
       .project-carousel .carousel-control-next { opacity: .7; }
 
-      /* certificados — 1 columna */
       .cert-name { font-size: .78rem; }
 
-      /* contact */
       .contact-card { padding: 1.5rem 1rem; }
       .contact-card::before { display: none; }
 
-      /* footer */
       footer { font-size: .68rem; padding: 1rem; }
 
-      /* section titles */
       .section-title { font-size: 1.6rem; margin-bottom: 1.5rem; }
 
-      /* skill tags más pequeños */
       .skill-tag { font-size: .65rem; padding: .2rem .5rem; }
 
-      /* botones */
       .btn-green, .btn-amber { padding: .5rem 1rem; font-size: .75rem; }
 
-      /* secciones con menos padding */
       .py-5 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
     }
 
@@ -576,14 +532,13 @@
       .hero-title { font-size: clamp(1.6rem, 9vw, 2.4rem); }
       .d-flex.gap-3 { gap: .6rem !important; flex-direction: column; }
       .btn-green, .btn-amber { width: 100%; justify-content: center; }
-      .cobol-card { display: none; } /* en pantallas muy pequeñas oculta el bloque de código */
+      .cobol-card { display: none; }
     }
-
   </style>
 </head>
 <body>
 
-<!-- ========== LOADER — TSO/ISPF MAINFRAME TERMINAL ========== -->
+<!-- ========== LOADER ========== -->
 <div id="loader">
   <div id="ld-sysbar">
     <span>IBM z/OS 3.1 · TSO/E · JES2 · COBOL V6R4 · ISPF 6.0</span>
@@ -610,27 +565,21 @@
   var phase = document.getElementById('ld-phase');
   var clk   = document.getElementById('ld-clock');
 
-  // Reloj — arranca inmediato
   function tick(){ clk.textContent = new Date().toTimeString().slice(0,8); }
   tick(); setInterval(tick, 1000);
 
-  // Fallback de emergencia: si algo falla, quitar loader a los 6s
+  // ── FIX: fallback de emergencia también respeta la bandera siteBuilt
   var emergency = setTimeout(function(){
     var l = document.getElementById('loader');
     if(l) l.style.display = 'none';
     if(typeof buildSite === 'function') buildSite();
   }, 6000);
 
-  function print(txt, cls, delay){
-    return new Promise(function(res){
-      setTimeout(function(){
-        var d = document.createElement('div');
-        d.className = cls || 'lg';
-        d.textContent = txt;
-        scr.appendChild(d);
-        res();
-      }, delay || 0);
-    });
+  function print(txt, cls){
+    var d = document.createElement('div');
+    d.className = cls || 'lg';
+    d.textContent = txt;
+    scr.appendChild(d);
   }
 
   function setProg(p){
@@ -638,7 +587,6 @@
     pct.textContent  = p + '%';
   }
 
-  // ── FASE 1: cabecera TSO/ISPF
   var header = [
     { t:'IBM Time Sharing Option / Extensions (TSO/E)', c:'lb' },
     { t:'z/OS 3.1 · JES2 · NODE: SYSA · CPU: 0001', c:'ld' },
@@ -646,10 +594,8 @@
     { t:'READY', c:'lg' },
   ];
 
-  // ── FASE 2: teclear comando
   var CMD = 'SUBMIT AARON.JCL(PORTFOLIO)';
 
-  // ── FASE 3: salida JOB
   var jobOut = [
     { t:'IEF403I PORTFOLIO - STARTED - TIME='+new Date().toTimeString().slice(0,8), c:'lg' },
     { t:'$HASP100 PORTFOLIO ON JES2 INPUT QUEUE', c:'ld' },
@@ -657,7 +603,6 @@
     { t:'', c:'ld'},
   ];
 
-  // ── FASE 4: datos del empleado
   var data = [
     { k:'JOB-NAME ', v:'PORTFOLIO',                     a:false },
     { k:'CLASS    ', v:'A',                             a:false },
@@ -676,16 +621,13 @@
     { k:'STATUS   ', v:'◉ DISPONIBLE PARA PROYECTOS', a:true  },
   ];
 
-  // ── RUNNER
   var delay = 0;
 
-  // Cabecera
   header.forEach(function(l){
     delay += 120;
     (function(d,item){ setTimeout(function(){ print(item.t, item.c); }, d); })(delay, l);
   });
 
-  // Cursor escribe comando
   delay += 200;
   setTimeout(function(){
     phase.textContent = 'TSO COMMAND INPUT';
@@ -710,7 +652,6 @@
     delay += 250;
     setTimeout(function(){
       phase.textContent = 'LOADING EMPLOYEE RECORD';
-      // separator
       print('  DD *', 'ld');
       var i = 0;
       function nextField(){
@@ -843,7 +784,7 @@
     </div>
   </section>
 
-  <!-- ========== COBOL IDENTIFICATION SECTION ========== -->
+  <!-- ========== COBOL IDENTIFICATION ========== -->
   <section id="cobol-id" class="py-5 section-alt">
     <div class="container">
       <h2 class="section-title">COBOL.IDENTIFICATION</h2>
@@ -1017,7 +958,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-// ============ BUILD SITE ============
+
+// ============================================================
+// DATOS
+// ============================================================
 const estudios = [
   { titulo:"Especialización en Ciberseguridad @VANZA", institucion:"IES Valle del Jerte", fecha:"Cursando Actualmente", descripcion:"Formación avanzada en análisis de vulnerabilidades, protección de sistemas y seguridad informática." },
   { titulo:"Técnico Superior en Desarrollo de Aplicaciones Multiplataforma", institucion:"IES Augustóbriga", fecha:"2023 – 2025", descripcion:"Desarrollo para múltiples plataformas: web, móvil y escritorio." },
@@ -1056,13 +1000,32 @@ const proyectos = [
   { id:8, nombre:'WeHelp', descripcion:'Aplicación web en desarrollo. Solución moderna y dinámica para necesidades actuales.', imagenes:['proyectos/img1wehelp.png','proyectos/img2wehelp.png'], tecnologias:['Vue.js','MongoDB','Firebase','JavaScript','CSS','Bootstrap'] }
 ];
 
-// ============ LOADER ============
+// ============================================================
+// ── FIX DUPLICADO: bandera global ──
+// ============================================================
+let siteBuilt = false;
 
-
-// ============ BUILD SITE ============
+// ============================================================
+// BUILD SITE
+// ============================================================
 function buildSite() {
-  // ESTUDIOS
+  // ── GUARD: si ya se ejecutó una vez, salir inmediatamente ──
+  if (siteBuilt) return;
+  siteBuilt = true;
+
+  // Contenedores
   const ec = document.getElementById('estudios-container');
+  const xc = document.getElementById('experiencia-container');
+  const cc = document.getElementById('certificados-container');
+  const pc = document.getElementById('proyectos-container');
+
+  // Limpiar por si acaso (defensa extra)
+  ec.innerHTML = '';
+  xc.innerHTML = '';
+  cc.innerHTML = '';
+  pc.innerHTML = '';
+
+  // ── ESTUDIOS ──
   estudios.forEach(e => {
     ec.insertAdjacentHTML('beforeend', `
       <div class="timeline-item">
@@ -1075,8 +1038,7 @@ function buildSite() {
       </div>`);
   });
 
-  // EXPERIENCIA
-  const xc = document.getElementById('experiencia-container');
+  // ── EXPERIENCIA ──
   experiencia.forEach(e => {
     const tags = (e.tecnologias||[]).map(t=>`<span class="skill-tag skill-tag-amber">${t}</span>`).join('');
     xc.insertAdjacentHTML('beforeend', `
@@ -1091,8 +1053,7 @@ function buildSite() {
       </div>`);
   });
 
-  // CERTIFICADOS
-  const cc = document.getElementById('certificados-container');
+  // ── CERTIFICADOS ──
   certificados.forEach(c => {
     const col = document.createElement('div');
     col.className = 'col-lg-4 col-md-6 mb-4';
@@ -1110,8 +1071,7 @@ function buildSite() {
     cc.appendChild(col);
   });
 
-  // PROYECTOS
-  const pc = document.getElementById('proyectos-container');
+  // ── PROYECTOS ──
   proyectos.forEach(p => {
     const tags = p.tecnologias.map(t=>`<span class="skill-tag">${t}</span>`).join('');
     let imgHtml = '';
@@ -1134,7 +1094,7 @@ function buildSite() {
     pc.appendChild(col);
   });
 
-  // CAROUSELS
+  // ── CAROUSELS ──
   setTimeout(() => {
     document.querySelectorAll('.carousel').forEach(el => {
       const old = bootstrap.Carousel.getInstance(el);
@@ -1143,7 +1103,7 @@ function buildSite() {
     });
   }, 300);
 
-  // CERT MODAL
+  // ── CERT MODAL ──
   document.getElementById('certificateModal').addEventListener('show.bs.modal', e => {
     const b = e.relatedTarget;
     document.getElementById('certificateModalLabel').textContent = b.dataset.name;
@@ -1151,7 +1111,7 @@ function buildSite() {
     document.getElementById('certificateModalImg').src = b.dataset.img;
   });
 
-  // SMOOTH SCROLL
+  // ── SMOOTH SCROLL ──
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
@@ -1160,7 +1120,7 @@ function buildSite() {
     });
   });
 
-  // ACTIVE NAV
+  // ── ACTIVE NAV ──
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-link');
   function updateNav() {
