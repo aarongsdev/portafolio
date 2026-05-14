@@ -33,100 +33,137 @@
       position: fixed; inset: 0;
       background: #000;
       z-index: 9999;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      font-family: var(--font-mono);
-      color: var(--green);
-      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Courier New', Courier, monospace;
     }
-    #loader::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px);
-      pointer-events: none;
-      animation: scan 8s linear infinite;
+    /* scanlines */
+    #loader::after {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,65,0.025) 3px, rgba(0,255,65,0.025) 4px);
+      animation: scanmove 10s linear infinite;
     }
-    @keyframes scan { from{background-position:0 0} to{background-position:0 400px} }
+    @keyframes scanmove { to { background-position: 0 400px; } }
 
-    .loader-frame {
-      border: 2px solid var(--green);
-      padding: 2rem 3rem;
-      width: min(700px, 92vw);
-      box-shadow: var(--shadow-ga), inset 0 0 60px rgba(0,255,65,0.04);
-      position: relative;
+    .loader-wrap {
+      width: min(900px, 96vw);
+      border: 1px solid #00ff41;
+      box-shadow: 0 0 60px rgba(0,255,65,0.25), inset 0 0 40px rgba(0,255,65,0.03);
+      display: flex; flex-direction: column;
+      position: relative; z-index: 1;
     }
-    .loader-frame::before, .loader-frame::after {
-      content: ''; position: absolute;
-      width: 16px; height: 16px;
-      border-color: var(--amber);
-      border-style: solid;
-    }
-    .loader-frame::before { top:-2px; left:-2px; border-width: 2px 0 0 2px; }
-    .loader-frame::after  { bottom:-2px; right:-2px; border-width: 0 2px 2px 0; }
 
-    .loader-header {
-      font-family: var(--font-vt);
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
-      color: var(--amber);
-      letter-spacing: 3px;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 10px var(--amber);
+    .loader-topbar {
+      background: rgba(0,255,65,0.08);
+      border-bottom: 1px solid rgba(0,255,65,0.25);
+      padding: 0.4rem 1rem;
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: #00c030; letter-spacing: 1px;
     }
-    .loader-sys {
-      font-size: 0.75rem;
-      color: var(--green-dim);
-      margin-bottom: 1.5rem;
-      text-align: center;
-      letter-spacing: 1px;
-    }
-    .loader-log {
-      font-size: clamp(0.7rem, 2vw, 0.85rem);
-      line-height: 1.8;
-      min-height: 200px;
-    }
-    .log-line { opacity: 0; animation: fadeInLine 0.1s forwards; }
-    .log-ok   { color: var(--green); }
-    .log-info { color: var(--green-dim); }
-    .log-warn { color: var(--amber); }
-    .log-head { color: var(--amber); font-family: var(--font-vt); font-size: 1.1em; }
-    @keyframes fadeInLine { to { opacity: 1; } }
+    .loader-topbar-r { color: #ffb000; font-size: 0.75rem; }
 
+    .loader-body {
+      display: flex; gap: 0; min-height: 280px;
+    }
+
+    .loader-card {
+      flex: 1.1;
+      padding: 1.2rem 1.5rem;
+      border-right: 1px solid rgba(0,255,65,0.2);
+    }
+    .loader-skills-panel {
+      flex: 0.9;
+      padding: 1.2rem 1.5rem;
+    }
+
+    .loader-card-title {
+      font-size: 0.68rem; color: #ffb000;
+      letter-spacing: 2px; margin-bottom: 0.9rem;
+      text-shadow: 0 0 8px #ffb000;
+    }
+
+    /* FIELDS */
+    .l-field {
+      display: flex; gap: 0; margin-bottom: 0.35rem;
+      font-size: clamp(0.7rem, 1.8vw, 0.82rem);
+      opacity: 0; animation: fieldIn 0.15s forwards;
+      white-space: nowrap; overflow: hidden;
+    }
+    @keyframes fieldIn { to { opacity: 1; } }
+    .l-key {
+      color: #00c030; min-width: 130px; flex-shrink: 0;
+    }
+    .l-sep { color: #005a18; margin: 0 0.3rem; }
+    .l-val { color: #00ff41; text-shadow: 0 0 6px rgba(0,255,65,0.4); }
+    .l-val.amber { color: #ffb000; text-shadow: 0 0 6px rgba(255,176,0,0.4); }
+    .l-val.typing::after {
+      content: '█'; animation: blink 0.6s step-end infinite;
+      font-size: 0.85em;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .loader-cursor {
+      color: #00ff41; font-size: 1rem;
+      animation: blink 0.6s step-end infinite;
+      margin-top: 0.5rem; height: 1rem;
+    }
+
+    /* SKILL BARS */
+    .l-skill { margin-bottom: 0.6rem; opacity: 0; animation: fieldIn 0.2s forwards; }
+    .l-skill-row { display:flex; justify-content:space-between; margin-bottom:0.2rem; }
+    .l-skill-name { font-size:0.72rem; color:#00c030; letter-spacing:1px; }
+    .l-skill-pct  { font-size:0.72rem; color:#ffb000; }
+    .l-bar-bg { height:6px; background:rgba(0,255,65,0.1); border:1px solid rgba(0,255,65,0.2); }
+    .l-bar-fill {
+      height:100%; width:0%;
+      background: linear-gradient(90deg, #003b10, #00ff41);
+      box-shadow: 0 0 8px rgba(0,255,65,0.5);
+      transition: width 0.6s ease;
+    }
+    .l-bar-fill.amber-bar {
+      background: linear-gradient(90deg, #3b2000, #ffb000);
+      box-shadow: 0 0 8px rgba(255,176,0,0.5);
+    }
+
+    /* STATUS pills */
+    .l-status { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.3rem; }
+    .l-pill {
+      font-size:0.65rem; padding:0.15rem 0.5rem;
+      border:1px solid rgba(0,255,65,0.3);
+      color:#00ff41; letter-spacing:1px;
+      opacity:0; animation: fieldIn 0.2s forwards;
+    }
+    .l-pill.ok { border-color:rgba(0,255,65,0.4); }
+    .l-pill.warn { color:#ffb000; border-color:rgba(255,176,0,0.3); }
+
+    /* FOOTER / PROGRESS */
+    .loader-footer {
+      border-top: 1px solid rgba(0,255,65,0.2);
+      padding: 0.8rem 1.5rem;
+      background: rgba(0,255,65,0.03);
+    }
     .loader-progress-wrap {
-      margin-top: 1.5rem;
-      border: 1px solid var(--border);
-      height: 12px;
-      background: #010501;
-      position: relative;
-      overflow: hidden;
+      height: 8px; background: #010e01;
+      border: 1px solid rgba(0,255,65,0.2);
+      position: relative; overflow: hidden; margin-bottom: 0.4rem;
     }
     .loader-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--green-dark), var(--green));
-      width: 0%;
-      transition: width 0.4s ease;
-      box-shadow: 0 0 10px var(--green);
+      height:100%; width:0%;
+      background: linear-gradient(90deg, #003b10, #00ff41);
+      transition: width 0.3s ease;
+      box-shadow: 0 0 12px rgba(0,255,65,0.6);
     }
-    .loader-progress-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.72rem;
-      color: var(--green-dim);
-      margin-top: 0.4rem;
-      letter-spacing: 1px;
+    .loader-footer-row {
+      display:flex; justify-content:space-between;
+      font-size:0.7rem; color:#00c030; letter-spacing:1px;
     }
-    #loader-phase-label { color: var(--amber); }
-    .loader-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0.8rem 0;
+    #loader-pct { color:#ffb000; }
+    #l-phase-txt { color:#00c030; }
+
+    @media(max-width:600px){
+      .loader-body { flex-direction: column; }
+      .loader-card { border-right:none; border-bottom:1px solid rgba(0,255,65,0.2); }
+      .loader-skills-panel { display:none; }
     }
-    .cursor-blink {
-      display: inline-block; width: 8px; height: 14px;
-      background: var(--green);
-      animation: blink 0.8s step-end infinite;
-      vertical-align: middle; margin-left: 2px;
-    }
-    @keyframes blink { 50%{opacity:0} }
 
     /* ============ MAIN SITE ============ */
     body {
@@ -149,10 +186,11 @@
 
     /* ---- NAVBAR ---- */
     .navbar {
-      background: rgba(2,8,2,0.97) !important;
+      background: rgba(2,8,2,0.99) !important;
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      height: var(--navbar-h);
+      height: auto;
+      min-height: var(--navbar-h);
       font-family: var(--font-mono);
     }
     .navbar-brand {
@@ -162,22 +200,41 @@
       letter-spacing: 2px;
       text-shadow: 0 0 8px var(--amber);
     }
+    .navbar-collapse {
+      background: rgba(2,8,2,0.99);
+    }
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        border-top: 1px solid var(--border);
+        padding: 0.5rem 0 1rem;
+        margin-top: 0.5rem;
+      }
+      .nav-link {
+        border-bottom: 1px solid rgba(0,255,65,0.08) !important;
+        border-radius: 0 !important;
+        padding: 0.7rem 1rem !important;
+      }
+    }
     .nav-link {
-      color: var(--green-dim) !important;
+      color: var(--green) !important;
       font-size: 0.85rem;
       letter-spacing: 1px;
       padding: 0.4rem 0.9rem !important;
       border: 1px solid transparent;
-      border-radius: 0;
       transition: all 0.2s;
     }
     .nav-link:hover, .nav-link.active {
-      color: var(--green) !important;
-      border-color: var(--border);
-      background: rgba(0,255,65,0.05);
+      color: var(--amber) !important;
+      background: rgba(0,255,65,0.07);
       text-shadow: 0 0 8px var(--green);
     }
-    .navbar-toggler { border: 1px solid var(--border) !important; }
+    .navbar-toggler {
+      border: 1px solid var(--green) !important;
+      padding: 0.3rem 0.6rem;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300ff41' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
 
     /* ---- HERO ---- */
     .hero-section {
@@ -534,17 +591,45 @@
 
 <!-- ========== LOADING SCREEN ========== -->
 <div id="loader">
-  <div class="loader-frame">
-    <div class="loader-header" id="loader-phase-title">▓ INITIALIZING MAINFRAME ENVIRONMENT ▓</div>
-    <div class="loader-sys" id="loader-sys-line">z/OS V2.5 · JES2 · IBM z16 · COBOL 6.4</div>
-    <div class="loader-log" id="loader-log"></div>
-    <div class="loader-progress-wrap">
-      <div class="loader-progress-bar" id="loader-bar"></div>
+  <div class="loader-wrap">
+
+    <!-- Cabecera fija -->
+    <div class="loader-topbar">
+      <span class="loader-topbar-l">IBM z/OS V2.5 · JES2 · COBOL 6.4</span>
+      <span class="loader-topbar-r" id="l-clock">00:00:00</span>
     </div>
-    <div class="loader-progress-row">
-      <span id="loader-phase-label">BOOTING</span>
-      <span id="loader-pct">0%</span>
+
+    <div class="loader-body">
+      <!-- Columna izquierda: ficha de empleado -->
+      <div class="loader-card">
+        <div class="loader-card-title">◈ EMPLOYEE RECORD SCAN</div>
+        <div class="loader-fields" id="l-fields">
+          <!-- se inyectan campos aquí -->
+        </div>
+        <div class="loader-cursor" id="l-cursor">█</div>
+      </div>
+
+      <!-- Columna derecha: skill bars -->
+      <div class="loader-skills-panel">
+        <div class="loader-card-title">◈ SKILL MATRIX LOAD</div>
+        <div id="l-skills"></div>
+        <div class="loader-card-title" style="margin-top:1.2rem">◈ SYSTEM STATUS</div>
+        <div id="l-status"></div>
+      </div>
     </div>
+
+    <!-- Barra de progreso -->
+    <div class="loader-footer">
+      <div class="loader-progress-wrap">
+        <div class="loader-progress-bar" id="loader-bar"></div>
+        <div class="loader-progress-glow" id="loader-glow"></div>
+      </div>
+      <div class="loader-footer-row">
+        <span id="l-phase-txt">SCANNING EMPLOYEE RECORD...</span>
+        <span id="loader-pct">0%</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -806,186 +891,156 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-// ============ NAVBAR SCROLL ============
-const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 30);
-});
+// ============ CLOCK ============
+const clockEl = document.getElementById('l-clock');
+function tickClock() {
+  const n = new Date();
+  clockEl.textContent = n.toTimeString().slice(0,8);
+}
+tickClock(); setInterval(tickClock, 1000);
 
-// ============ LOADER PHASES ============
-const loaderLog   = document.getElementById('loader-log');
-const loaderBar   = document.getElementById('loader-bar');
-const loaderPct   = document.getElementById('loader-pct');
-const loaderPhase = document.getElementById('loader-phase-title');
-const loaderPhaseLabel = document.getElementById('loader-phase-label');
-const loaderSys   = document.getElementById('loader-sys-line');
-
-// Each phase: { title, label, sysline, lines[] }
-const phases = [
-  {
-    title: '▓ PHASE 1 — SYSTEM BOOT ▓',
-    label: 'BOOTING',
-    sysline: 'z/OS V2.5 · SYSRES: PROD01 · IPL IN PROGRESS',
-    lines: [
-      {t:'head', txt:'IBM Z HARDWARE MANAGEMENT CONSOLE — ONLINE'},
-      {t:'info', txt:'IEA101A SPECIFY SYSTEM PARAMETERS'},
-      {t:'ok',   txt:'  CLPA — BUILD NEW LPA FROM SYSLIB — DONE'},
-      {t:'ok',   txt:'  NIP — NUCLEUS INITIALIZATION PROGRAM — OK'},
-      {t:'ok',   txt:'  JES2 SUBSYSTEM — STARTED'},
-      {t:'ok',   txt:'  SMF — SYSTEM MANAGEMENT FACILITIES — ACTIVE'},
-      {t:'warn', txt:'  IEF403I PORTAFOLIO ON INTRDR FROM AARON.GUESTA'},
-    ]
-  },
-  {
-    title: '▓ PHASE 2 — INSTALLING DEPENDENCIES ▓',
-    label: 'INSTALLING',
-    sysline: 'npm · pip · maven · gradle · cargo · apt',
-    lines: [
-      {t:'head', txt:'DEPENDENCY MANAGER INIT — MULTI-RUNTIME'},
-      {t:'dep',  pkg:'cobol-runtime@6.4.0',     size:'2.1 MB',  src:'ibm-registry'},
-      {t:'dep',  pkg:'jcl-processor@2.5.1',     size:'840 KB',  src:'ibm-registry'},
-      {t:'dep',  pkg:'cics-connector@3.1.0',    size:'1.4 MB',  src:'ibm-registry'},
-      {t:'dep',  pkg:'db2-driver@11.5.9',       size:'3.2 MB',  src:'ibm-registry'},
-      {t:'dep',  pkg:'java-jdk@21.0.3',         size:'180 MB',  src:'adoptium'},
-      {t:'dep',  pkg:'spring-boot@3.2.5',       size:'12.4 MB', src:'mvnrepository'},
-      {t:'dep',  pkg:'python@3.12.3',           size:'28.6 MB', src:'python.org'},
-      {t:'dep',  pkg:'angular@17.3.2',          size:'45.1 MB', src:'npmjs'},
-      {t:'dep',  pkg:'react@18.3.1',            size:'8.7 MB',  src:'npmjs'},
-      {t:'dep',  pkg:'vue@3.4.21',              size:'6.3 MB',  src:'npmjs'},
-      {t:'dep',  pkg:'dotnet-sdk@8.0.204',      size:'220 MB',  src:'microsoft'},
-      {t:'dep',  pkg:'android-sdk@34.0.0',      size:'512 MB',  src:'google'},
-      {t:'dep',  pkg:'firebase@10.11.0',        size:'5.8 MB',  src:'npmjs'},
-      {t:'dep',  pkg:'mongodb-driver@6.5.0',    size:'3.1 MB',  src:'npmjs'},
-      {t:'ok',   txt:'ALL DEPENDENCIES RESOLVED — 0 VULNERABILITIES'},
-    ]
-  },
-  {
-    title: '▓ PHASE 3 — COMPILING COBOL SOURCE ▓',
-    label: 'COMPILING',
-    sysline: 'IGYCRCTL — IBM COBOL V6.4 COMPILER',
-    lines: [
-      {t:'head', txt:'IGYCRCTL — COBOL COMPILATION UNIT INITIATED'},
-      {t:'info', txt:'  PP 5655-EC6 IBM COBOL 6.4 IN PROGRESS'},
-      {t:'ok',   txt:'  AARON-GUESTA.cbl       → AARON-GUESTA.obj      [OK]'},
-      {t:'ok',   txt:'  SKILLS-TABLE.cbl       → SKILLS-TABLE.obj       [OK]'},
-      {t:'ok',   txt:'  EXPERIENCIA-MODULE.cbl → EXPERIENCIA-MODULE.obj [OK]'},
-      {t:'ok',   txt:'  CERTIFICADOS-DB.cbl    → CERTIFICADOS-DB.obj    [OK]'},
-      {t:'ok',   txt:'  PROYECTOS-RENDER.cbl   → PROYECTOS-RENDER.obj   [OK]'},
-      {t:'ok',   txt:'  CONTACTO-PROC.cbl      → CONTACTO-PROC.obj      [OK]'},
-      {t:'warn', txt:'  IGYPS2121-W: FIELD WS-HUMILDAD IS VERY SMALL'},
-      {t:'warn', txt:'  IGYPS2121-W: FIELD WS-COFFEE-CONSUMED OVERFLOW'},
-      {t:'ok',   txt:'  LINK-EDIT COMPLETE — LOAD MODULE READY'},
-      {t:'ok',   txt:'  0 ERRORS · 2 WARNINGS (NON-CRITICAL)'},
-    ]
-  },
-  {
-    title: '▓ PHASE 4 — LOADING PORTFOLIO DATA ▓',
-    label: 'LOADING',
-    sysline: 'PROCEDURE DIVISION — EXEC PGM=PORTFOLIO',
-    lines: [
-      {t:'head', txt:'IDENTIFICATION DIVISION. OK'},
-      {t:'ok',   txt:'  PROGRAM-ID  : AARON-GUESTA-SANTOS'},
-      {t:'ok',   txt:'  AUTHOR      : AARON GÜESTA SANTOS'},
-      {t:'ok',   txt:'  INSTALLATION: NTT DATA · SALAMANCA'},
-      {t:'ok',   txt:'  DATE-WRITTEN: 2025'},
-      {t:'info', txt:'DATA DIVISION. LOADING...'},
-      {t:'ok',   txt:'  WS-SKILLS-MAINFRAME  : COBOL, JCL, CICS, DB2 — LOADED'},
-      {t:'ok',   txt:'  WS-SKILLS-WEB        : Angular, React, Vue — LOADED'},
-      {t:'ok',   txt:'  WS-SKILLS-BACKEND    : Java, Python, C#, Spring — LOADED'},
-      {t:'ok',   txt:'  WS-CERTIFICACIONES   : 12 UNITS — VERIFIED'},
-      {t:'ok',   txt:'  WS-EXPERIENCIA       : VIEWNEXT + NTT DATA — ACTIVE'},
-      {t:'info', txt:'PROCEDURE DIVISION. EXECUTING...'},
-      {t:'ok',   txt:'  PERFORM RENDER-HERO               [✓]'},
-      {t:'ok',   txt:'  PERFORM RENDER-ESTUDIOS           [✓]'},
-      {t:'ok',   txt:'  PERFORM RENDER-EXPERIENCIA        [✓]'},
-      {t:'ok',   txt:'  PERFORM RENDER-CERTIFICADOS       [✓]'},
-      {t:'ok',   txt:'  PERFORM RENDER-PROYECTOS          [✓]'},
-      {t:'head', txt:'IEF142I PORTAFOLIO — COND CODE 0000 — JOB ENDED NORMALLY'},
-    ]
-  }
+// ============ LOADER DATA ============
+const fields = [
+  { key:'NOMBRE',       val:'Aaron Güesta Santos',           amber:false },
+  { key:'ALIAS',        val:'AARON.GUESTA.SANTOS',           amber:false },
+  { key:'ROL',          val:'COBOL Developer · Mainframe',   amber:true  },
+  { key:'EMPRESA',      val:'NTT DATA — Salamanca',          amber:true  },
+  { key:'ANTERIOR',     val:'Viewnext (Banco Santander)',     amber:false },
+  { key:'TITULACION',   val:'DAM · Esp. Ciberseguridad',     amber:false },
+  { key:'CERTIFICADOS', val:'12 certificaciones IBM/LearnQuest', amber:false },
+  { key:'IDIOMAS',      val:'Castellano [NAT] · English [B1]', amber:false },
+  { key:'CONTACTO',     val:'aarongues30@gmail.com',         amber:false },
+  { key:'LINKEDIN',     val:'aaron-güesta-santos',           amber:false },
+  { key:'UBICACION',    val:'Salamanca, España',             amber:false },
+  { key:'STATUS',       val:'◉ DISPONIBLE PARA PROYECTOS',   amber:true  },
 ];
 
-// Total lines for % calc
-const totalLines = phases.reduce((a,p) => a + p.lines.length, 0);
-let globalDone = 0;
+const skills = [
+  { name:'COBOL / JCL / CICS', pct:92, amber:true  },
+  { name:'DB2 / SQL / NoSQL',  pct:85, amber:false },
+  { name:'Java / Spring Boot', pct:80, amber:false },
+  { name:'Python',             pct:75, amber:false },
+  { name:'Angular / React',    pct:78, amber:false },
+  { name:'C# / .NET / WPF',    pct:76, amber:false },
+];
 
-function setProgress(pct) {
-  loaderBar.style.width = pct + '%';
-  loaderPct.textContent = Math.round(pct) + '%';
+const statuses = [
+  { txt:'JES2 ✓',      ok:true  },
+  { txt:'DB2 ✓',       ok:true  },
+  { txt:'CICS ✓',      ok:true  },
+  { txt:'COBOL ✓',     ok:true  },
+  { txt:'JCL ✓',       ok:true  },
+  { txt:'JAVA ✓',      ok:true  },
+  { txt:'ANGULAR ✓',   ok:true  },
+  { txt:'REACT ✓',     ok:true  },
+  { txt:'C# ✓',        ok:true  },
+  { txt:'PYTHON ✓',    ok:true  },
+  { txt:'WARNINGS: 0', ok:false },
+  { txt:'ERRORS: 0',   ok:true  },
+];
+
+// ============ RENDER ============
+const fieldsEl  = document.getElementById('l-fields');
+const skillsEl  = document.getElementById('l-skills');
+const statusEl  = document.getElementById('l-status');
+const barEl     = document.getElementById('loader-bar');
+const pctEl     = document.getElementById('loader-pct');
+const phaseEl   = document.getElementById('l-phase-txt');
+const cursorEl  = document.getElementById('l-cursor');
+
+const totalSteps = fields.length + skills.length + statuses.length;
+let done = 0;
+
+function setProgress(d) {
+  const p = Math.round((d / totalSteps) * 100);
+  barEl.style.width = p + '%';
+  pctEl.textContent = p + '%';
 }
 
-function addLogLine(t, txt) {
+function addField(i) {
+  if (i >= fields.length) {
+    phaseEl.textContent = 'LOADING SKILL MATRIX...';
+    addSkill(0);
+    return;
+  }
+  const f = fields[i];
   const div = document.createElement('div');
-  div.className = 'log-line log-' + t;
-  if (t === 'ok')   div.textContent = '+ ' + txt;
-  else if (t === 'warn') div.textContent = '! ' + txt;
-  else if (t === 'head') div.textContent = '══ ' + txt;
-  else if (t === 'dep')  div.textContent = txt;
-  else              div.textContent = '  ' + txt;
-  loaderLog.appendChild(div);
-  // Keep only last 12 lines visible (scroll effect)
-  const allLines = loaderLog.querySelectorAll('.log-line');
-  if (allLines.length > 12) allLines[0].remove();
+  div.className = 'l-field';
+  div.style.animationDelay = '0s';
+  div.innerHTML = `<span class="l-key">${f.key}</span><span class="l-sep">░░</span><span class="l-val${f.amber?' amber':''} typing">${f.val}</span>`;
+  fieldsEl.appendChild(div);
+
+  // remove typing cursor after a beat
+  setTimeout(() => {
+    div.querySelector('.l-val').classList.remove('typing');
+  }, 280);
+
+  done++;
+  setProgress(done);
+  setTimeout(() => addField(i + 1), 220);
 }
 
-function runPhase(phaseIdx, done) {
-  if (phaseIdx >= phases.length) {
-    // Finish
-    setProgress(100);
-    loaderPhase.textContent = '▓ PORTFOLIO READY — RETURN CODE: 0 ▓';
-    loaderPhaseLabel.textContent = 'DONE';
-    loaderSys.textContent = 'ALL SYSTEMS GO — LAUNCHING...';
+function addSkill(i) {
+  if (i >= skills.length) {
+    phaseEl.textContent = 'CHECKING SYSTEM STATUS...';
+    addStatus(0);
+    return;
+  }
+  const s = skills[i];
+  const div = document.createElement('div');
+  div.className = 'l-skill';
+  div.style.animationDelay = '0s';
+  div.innerHTML = `
+    <div class="l-skill-row">
+      <span class="l-skill-name">${s.name}</span>
+      <span class="l-skill-pct">${s.pct}%</span>
+    </div>
+    <div class="l-bar-bg"><div class="l-bar-fill${s.amber?' amber-bar':''}" id="bar-${i}"></div></div>`;
+  skillsEl.appendChild(div);
+
+  setTimeout(() => {
+    const fill = document.getElementById('bar-'+i);
+    if (fill) fill.style.width = s.pct + '%';
+  }, 100);
+
+  done++;
+  setProgress(done);
+  setTimeout(() => addSkill(i + 1), 300);
+}
+
+function addStatus(i) {
+  if (i >= statuses.length) {
+    phaseEl.textContent = 'LAUNCHING PORTFOLIO...';
+    setProgress(totalSteps);
+    cursorEl.style.display = 'none';
     setTimeout(hideLogo, 900);
     return;
   }
-
-  const phase = phases[phaseIdx];
-  loaderPhase.textContent = phase.title;
-  loaderPhaseLabel.textContent = phase.label;
-  loaderSys.textContent = phase.sysline;
-
-  let lineIdx = 0;
-
-  function nextLine() {
-    if (lineIdx >= phase.lines.length) {
-      // Next phase after a gap
-      setTimeout(() => runPhase(phaseIdx + 1, done), 400);
-      return;
-    }
-    const l = phase.lines[lineIdx++];
-    globalDone++;
-
-    let displayTxt = l.txt || '';
-    if (l.t === 'dep') {
-      displayTxt = `  added ${l.pkg.padEnd(28)} ${l.size.padStart(8)}   ← ${l.src}`;
-    }
-    addLogLine(l.t, displayTxt);
-    setProgress((globalDone / totalLines) * 100);
-
-    const delay = l.t === 'head' ? 250
-                : l.t === 'dep'  ? 90
-                : l.t === 'warn' ? 180
-                : l.t === 'info' ? 130
-                : 70;
-    setTimeout(nextLine, delay);
-  }
-
-  nextLine();
+  const s = statuses[i];
+  const span = document.createElement('span');
+  span.className = 'l-pill ' + (s.ok ? 'ok' : 'warn');
+  span.style.animationDelay = '0s';
+  span.textContent = s.txt;
+  statusEl.appendChild(span);
+  done++;
+  setProgress(done);
+  setTimeout(() => addStatus(i + 1), 120);
 }
 
 function hideLogo() {
   const loader = document.getElementById('loader');
-  loader.style.transition = 'opacity 0.9s ease';
+  loader.style.transition = 'opacity 0.8s ease';
   loader.style.opacity = '0';
   setTimeout(() => {
     loader.style.display = 'none';
     document.body.classList.add('visible');
     buildSite();
-  }, 900);
+  }, 800);
 }
 
 // Kick off
-setTimeout(() => runPhase(0), 300);
+phaseEl.textContent = 'SCANNING EMPLOYEE RECORD...';
+setTimeout(() => addField(0), 300);
 const estudios = [
   { titulo:"Especialización en Ciberseguridad @VANZA", institucion:"IES Valle del Jerte", fecha:"Cursando Actualmente", descripcion:"Formación avanzada en análisis de vulnerabilidades, protección de sistemas y seguridad informática." },
   { titulo:"Técnico Superior en Desarrollo de Aplicaciones Multiplataforma", institucion:"IES Augustóbriga", fecha:"2023 – 2025", descripcion:"Desarrollo para múltiples plataformas: web, móvil y escritorio." },
