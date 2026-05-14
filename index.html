@@ -1018,7 +1018,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
 // ============ BUILD SITE ============
-const estudios = [
+let _built = false;
+function buildSite() {
+  if (_built) return;
+  _built = true;
+
+  const estudios = [
   { titulo:"Especialización en Ciberseguridad @VANZA", institucion:"IES Valle del Jerte", fecha:"Cursando Actualmente", descripcion:"Formación avanzada en análisis de vulnerabilidades, protección de sistemas y seguridad informática." },
   { titulo:"Técnico Superior en Desarrollo de Aplicaciones Multiplataforma", institucion:"IES Augustóbriga", fecha:"2023 – 2025", descripcion:"Desarrollo para múltiples plataformas: web, móvil y escritorio." },
   { titulo:"Bachillerato", institucion:"IES Albalat", fecha:"2021 – 2023", descripcion:"Bachillerato en Ciencias Sociales." }
