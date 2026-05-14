@@ -515,11 +515,70 @@
     }
     .hero-title { animation: flicker 6s infinite; }
 
+    /* ============ RESPONSIVE MÓVIL ============ */
     @media (max-width: 768px) {
-      .hero-title { letter-spacing: 2px; }
-      .contact-card { padding: 2rem 1rem; }
-      .contact-card::before { display:none; }
+
+      /* loader */
+      #ld-sysbar { font-size: .55rem; padding: .2rem .6rem; }
+      #ld-screen  { padding: .5rem .7rem .2rem; font-size: .72rem; min-height: auto; }
+      #ld-cmdline { padding: .4rem .7rem; font-size: .72rem; }
+      #ld-statusline { padding: .25rem .7rem; font-size: .55rem; }
+
+      /* hero */
+      .hero-title { font-size: clamp(2rem, 10vw, 3rem); letter-spacing: 2px; }
+      .hero-subtitle { font-size: .78rem; letter-spacing: 1px; }
+      .hero-desc { font-size: .9rem; }
+      .profile-img { width: 160px; height: 160px; }
+      .profile-frame { margin-bottom: 1.5rem; }
+
+      /* sección COBOL ID */
+      .cobol-card { font-size: .7rem; padding: 1rem; }
+
+      /* cards */
+      .modern-card { padding: 1.2rem; }
+
+      /* timeline */
+      .timeline { padding-left: 1.2rem; }
+      .timeline-item { margin-left: .5rem; }
+      .timeline-content h4 { font-size: .88rem; }
+
+      /* proyectos — 1 columna */
+      .project-carousel, .single-image-container { height: 200px; }
+
+      /* carrusel controles siempre visibles en móvil */
+      .project-carousel .carousel-control-prev,
+      .project-carousel .carousel-control-next { opacity: .7; }
+
+      /* certificados — 1 columna */
+      .cert-name { font-size: .78rem; }
+
+      /* contact */
+      .contact-card { padding: 1.5rem 1rem; }
+      .contact-card::before { display: none; }
+
+      /* footer */
+      footer { font-size: .68rem; padding: 1rem; }
+
+      /* section titles */
+      .section-title { font-size: 1.6rem; margin-bottom: 1.5rem; }
+
+      /* skill tags más pequeños */
+      .skill-tag { font-size: .65rem; padding: .2rem .5rem; }
+
+      /* botones */
+      .btn-green, .btn-amber { padding: .5rem 1rem; font-size: .75rem; }
+
+      /* secciones con menos padding */
+      .py-5 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
     }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: clamp(1.6rem, 9vw, 2.4rem); }
+      .d-flex.gap-3 { gap: .6rem !important; flex-direction: column; }
+      .btn-green, .btn-amber { width: 100%; justify-content: center; }
+      .cobol-card { display: none; } /* en pantallas muy pequeñas oculta el bloque de código */
+    }
+
   </style>
 </head>
 <body>
@@ -733,7 +792,7 @@
             &gt; JOB LOADED — READY TO DISPLAY
           </div>
           <h1 class="hero-title">AARON GÜESTA<br>SANTOS</h1>
-          <p class="hero-subtitle">▶ JUNIOR COBOL · MAINFRAME SPECIALIST · DAM</p>
+          <p class="hero-subtitle">▶ JUNIOR COBOL · MAINFRAME · DAM</p>
           <p class="hero-desc">
             Técnico Superior en DAM con especialización en entornos <strong style="color:var(--green)">Mainframe</strong>.
             Formación en COBOL, JCL, CICS y DB2. Máster COBOL por LearnQuest–IBM.
