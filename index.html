@@ -480,6 +480,7 @@ var experiencia=[
   {puesto:"Freelancer – Técnico de Sistemas",empresa:"Independiente",fecha:"Sep 2024 – Jun 2025",descripcion:"Instalación y configuración de sistemas Windows/Linux. Seguridad y asesoramiento técnico para PYMEs.",tecnologias:["Windows","Linux","Optimización de sistemas","Seguridad informática"]}
 ];
 var certificados=[
+  {nombre:"Curso de IA. De 0 a Agentes – BIG school / Jon Hernández (6h)",descripcion:"Domina la IA, gana competitividad y aprende cómo los agentes trabajan por ti. Certificado emitido el 01/09/2026.",imagen:"imgCertificados/cursoIABigSchool.png",nuevo:true},
   {nombre:"Máster VIEWNEXT En COBOL-HOST (30h)",descripcion:"Certificación avanzada en programación COBOL para sistemas mainframe, incluyendo JCL, CICS y DB2.",imagen:"imgCertificados/masterCobolHost.png"},
   {nombre:"Formación Específica Master COBOL – Santander (40h)",descripcion:"Certificación de formación en el entorno host del Banco Santander.",imagen:"imgCertificados/formacionEspecificaMasterCobolSantander.png"},
   {nombre:"MOD-051 SQL Avanzado (8h)",descripcion:"Formación avanzada en consultas y gestión de bases de datos SQL en entornos mainframe.",imagen:"imgCertificados/sqlAvanzado.png"},
@@ -491,8 +492,7 @@ var certificados=[
   {nombre:"IBM COBOL Basics – LearnQuest",descripcion:"Curso introductorio al lenguaje COBOL por LearnQuest para IBM.",imagen:"imgCertificados/basic.png"},
   {nombre:"IBM COBOL CORE – LearnQuest",descripcion:"Estructuras de control, procedimientos y manipulación de datos en aplicaciones empresariales.",imagen:"imgCertificados/cobolcore.png"},
   {nombre:"IBM COBOL Data & File Management – LearnQuest",descripcion:"Gestión de archivos y datos: acceso secuencial, indexado y estructuras de almacenamiento.",imagen:"imgCertificados/fileManagement.png"},
-  {nombre:"IBM COBOL Software Development Process – LearnQuest",descripcion:"Ciclo completo de desarrollo con COBOL: análisis, diseño, codificación, pruebas y mantenimiento.",imagen:"imgCertificados/development.png"},
-  {nombre:"Curso de IA. De 0 a Agentes – BIG school / Jon Hernández (6h)",descripcion:"Domina la IA, gana competitividad y aprende cómo los agentes trabajan por ti. Certificado emitido el 01/09/2026.",imagen:"imgCertificados/cursoIABigSchool.png"}
+  {nombre:"IBM COBOL Software Development Process – LearnQuest",descripcion:"Ciclo completo de desarrollo con COBOL: análisis, diseño, codificación, pruebas y mantenimiento.",imagen:"imgCertificados/development.png"}
 ];
 var proyectos=[
   {id:1,nombre:'Brujería Moderna',descripcion:'Tienda online con Angular para productos esotéricos. Experiencia de compra moderna e intuitiva.',imagenes:['proyectos/img1bru.png','proyectos/img2bru.png','proyectos/img3bru.png'],tecnologias:['Angular','CSS3','JavaScript','Bootstrap','PHP','HTML5','API REST','SQL']},
@@ -661,7 +661,8 @@ function buildSite(){
       var col=document.createElement('div');
       col.className='col-lg-4 col-md-6 mb-4 rev-s';
       col.style.transitionDelay=(idx%3*.12)+'s';
-      col.innerHTML='<div class="modern-card certificate-card h-100" data-bs-toggle="modal" data-bs-target="#certificateModal" data-name="'+c.nombre+'" data-desc="'+c.descripcion+'" data-img="'+c.imagen+'"><div class="text-center"><div class="cert-icon"><i class="bi bi-award-fill"></i></div><div class="cert-name">'+c.nombre+'</div><div class="cert-desc">'+c.descripcion+'</div><div class="cert-view"><i class="bi bi-eye me-1"></i>VER CERTIFICADO</div></div></div>';
+      var nuevoBadge=c.nuevo?'<span style="position:absolute;top:.7rem;right:.7rem;background:linear-gradient(90deg,var(--amber),#ff9a00);color:#000;font-family:var(--font-mono);font-size:.6rem;font-weight:700;letter-spacing:1px;padding:.2rem .6rem;border-radius:2px">★ NUEVO</span>':'';
+      col.innerHTML='<div class="modern-card certificate-card h-100" style="position:relative;'+(c.nuevo?'border-color:rgba(255,152,0,.5);':'')+'" data-bs-toggle="modal" data-bs-target="#certificateModal" data-name="'+c.nombre+'" data-desc="'+c.descripcion+'" data-img="'+c.imagen+'">'+nuevoBadge+'<div class="text-center"><div class="cert-icon"><i class="bi bi-award-fill"></i></div><div class="cert-name">'+c.nombre+'</div><div class="cert-desc">'+c.descripcion+'</div><div class="cert-view"><i class="bi bi-eye me-1"></i>VER CERTIFICADO</div></div></div>';
       cc.appendChild(col);
     });
 
