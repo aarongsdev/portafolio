@@ -474,8 +474,10 @@ var estudios=[
   {titulo:"Bachillerato",institucion:"IES Albalat",fecha:"2021 – 2023",descripcion:"Bachillerato en Ciencias Sociales."}
 ];
 var experiencia=[
-  {puesto:"Centers Developer",empresa:"NTT DATA, Salamanca",fecha:"01/07/2026 – ACTUALIDAD",inicio:new Date(2026,6,1),fin:null,descripcion:"Ascenso a Centers Developer. Liderazgo técnico en el desarrollo y mantenimiento de aplicaciones COBOL críticas en entorno productivo del sector asegurador.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"],ascenso:true},
-  {puesto:"Programador Junior COBOL",empresa:"NTT DATA, Salamanca",fecha:"07/01/2026 – 01/07/2026",inicio:new Date(2026,0,7),fin:new Date(2026,6,1),descripcion:"Desarrollo y mantenimiento de aplicaciones COBOL en entorno productivo.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"]},
+  {empresa:"NTT DATA, Salamanca",inicioTotal:new Date(2026,0,7),finTotal:null,grupo:[
+    {puesto:"Centers Developer",fecha:"01/07/2026 – ACTUALIDAD",inicio:new Date(2026,6,1),fin:null,descripcion:"Ascenso a Centers Developer. Liderazgo técnico en el desarrollo y mantenimiento de aplicaciones COBOL críticas en entorno productivo del sector asegurador.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"],ascenso:true},
+    {puesto:"Programador Junior COBOL",fecha:"07/01/2026 – 01/07/2026",inicio:new Date(2026,0,7),fin:new Date(2026,6,1),descripcion:"Desarrollo y mantenimiento de aplicaciones COBOL en entorno productivo.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"]}
+  ]},
   {puesto:"Programador COBOL – Prácticas",empresa:"Viewnext, Salamanca",fecha:"01/03/2025 – 01/06/2025",inicio:new Date(2025,2,1),fin:new Date(2025,5,1),descripcion:"Desarrollo y mantenimiento de aplicaciones mainframe para Banco Santander. Trabajo con DB2, pruebas unitarias y optimización de código COBOL.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe"]},
   {puesto:"Freelancer – Técnico de Sistemas",empresa:"Independiente",fecha:"Sep 2024 – Jun 2025",inicio:new Date(2024,8,1),fin:new Date(2025,5,1),descripcion:"Instalación y configuración de sistemas Windows/Linux. Seguridad y asesoramiento técnico para PYMEs.",tecnologias:["Windows","Linux","Optimización de sistemas","Seguridad informática"]}
 ];
@@ -668,11 +670,36 @@ function buildSite(){
 
     /* EXPERIENCIA */
     experiencia.forEach(function(e,idx){
-      var tags=(e.tecnologias||[]).map(function(t){return '<span class="skill-tag skill-tag-amber">'+t+'</span>';}).join('');
-      var ascensoBadge=e.ascenso?'<span style="display:inline-block;background:linear-gradient(90deg,var(--amber),#ff9a00);color:#000;font-family:var(--font-mono);font-size:.65rem;font-weight:700;letter-spacing:1px;padding:.2rem .7rem;border-radius:2px;margin-bottom:.7rem">▲ ASCENSO</span><br>':'';
-      var borderStyle=e.ascenso?'border-color:rgba(255,152,0,.6);box-shadow:0 0 18px rgba(255,152,0,.2);':'';
-      var durTag='<span style="display:inline-block;margin-top:.4rem;font-family:var(--font-mono);font-size:.72rem;color:var(--green);letter-spacing:.5px">⏱ '+durStr(e)+(e.fin?'':' <span style="color:var(--amber)">· EN CURSO</span>')+'</span>';
-      xc.insertAdjacentHTML('beforeend','<div class="timeline-item reveal" style="transition-delay:'+(idx*.15)+'s"><div class="timeline-content" style="'+borderStyle+'">'+ascensoBadge+'<h4 style="'+(e.ascenso?'color:var(--amber);':'')+'">'+(e.ascenso?'⬆ ':'')+e.puesto+'</h4><p style="color:var(--amber);font-family:var(--font-mono);font-size:.8rem;margin:.3rem 0"><i class="bi bi-building me-2"></i>'+e.empresa+'</p><p style="color:var(--green-dim);font-family:var(--font-mono);font-size:.78rem;margin-bottom:.3rem"><i class="bi bi-calendar me-2"></i>'+e.fecha+'</p>'+durTag+(e.descripcion?'<p style="color:#4a8a4a;font-size:.95rem;margin-bottom:.8rem;margin-top:.8rem">'+e.descripcion+'</p>':'')+(tags?'<div>'+tags+'</div>':'')+'</div></div>');
+      if(e.grupo){
+        /* ── tarjeta agrupada (misma empresa, varias posiciones) ── */
+        var totalDurStr=e.finTotal
+          ? calcDur(e.inicioTotal,e.finTotal)
+          : '<span class="exp-ticker" data-inicio="'+e.inicioTotal.getTime()+'">'+calcDur(e.inicioTotal,null)+'</span>';
+        var rolesHtml=e.grupo.map(function(r){
+          var rTags=(r.tecnologias||[]).map(function(t){return '<span class="skill-tag skill-tag-amber">'+t+'</span>';}).join('');
+          var rDur=r.fin?calcDur(r.inicio,r.fin):'<span class="exp-ticker" data-inicio="'+r.inicio.getTime()+'">'+calcDur(r.inicio,null)+'</span>';
+          var ascBadge=r.ascenso?'<span style="background:linear-gradient(90deg,var(--amber),#ff9a00);color:#000;font-family:var(--font-mono);font-size:.6rem;font-weight:700;letter-spacing:1px;padding:.15rem .5rem;border-radius:2px;margin-right:.5rem">▲ ASCENSO</span>':'';
+          return '<div style="border-left:2px solid '+(r.ascenso?'var(--amber)':'var(--green-dark)')+';padding:.7rem 1rem;margin-bottom:.8rem;background:rgba(0,0,0,.15);border-radius:0 4px 4px 0">'
+            +'<div style="margin-bottom:.3rem">'+ascBadge+'<strong style="font-family:var(--font-mono);color:'+(r.ascenso?'var(--amber)':'var(--green)')+';font-size:.9rem">'+(r.ascenso?'⬆ ':'')+r.puesto+'</strong></div>'
+            +'<div style="font-family:var(--font-mono);font-size:.72rem;color:var(--green-dim);margin-bottom:.3rem"><i class="bi bi-calendar me-1"></i>'+r.fecha+'</div>'
+            +'<div style="font-family:var(--font-mono);font-size:.72rem;color:var(--green);margin-bottom:.5rem">⏱ '+rDur+(r.fin?'':' <span style="color:var(--amber)">· EN CURSO</span>')+'</div>'
+            +(r.descripcion?'<p style="color:#4a8a4a;font-size:.88rem;margin-bottom:.6rem">'+r.descripcion+'</p>':'')
+            +(rTags?'<div>'+rTags+'</div>':'')
+            +'</div>';
+        }).join('');
+        xc.insertAdjacentHTML('beforeend',
+          '<div class="timeline-item reveal" style="transition-delay:'+(idx*.15)+'s">'
+          +'<div class="timeline-content" style="border-color:rgba(255,152,0,.5);box-shadow:0 0 18px rgba(255,152,0,.1);">'
+          +'<p style="color:var(--amber);font-family:var(--font-mono);font-size:.85rem;font-weight:700;margin-bottom:.3rem"><i class="bi bi-building me-2"></i>'+e.empresa+'</p>'
+          +'<div style="font-family:var(--font-mono);font-size:.72rem;color:var(--green);margin-bottom:1rem">⏱ TOTAL: '+totalDurStr+(e.finTotal?'':' <span style="color:var(--amber)">· EN CURSO</span>')+'</div>'
+          +rolesHtml
+          +'</div></div>');
+      } else {
+        /* ── tarjeta simple ── */
+        var tags=(e.tecnologias||[]).map(function(t){return '<span class="skill-tag skill-tag-amber">'+t+'</span>';}).join('');
+        var durTag='<span style="display:inline-block;margin-top:.4rem;font-family:var(--font-mono);font-size:.72rem;color:var(--green);letter-spacing:.5px">⏱ '+durStr(e)+(e.fin?'':' <span style="color:var(--amber)">· EN CURSO</span>')+'</span>';
+        xc.insertAdjacentHTML('beforeend','<div class="timeline-item reveal" style="transition-delay:'+(idx*.15)+'s"><div class="timeline-content"><h4>'+e.puesto+'</h4><p style="color:var(--amber);font-family:var(--font-mono);font-size:.8rem;margin:.3rem 0"><i class="bi bi-building me-2"></i>'+e.empresa+'</p><p style="color:var(--green-dim);font-family:var(--font-mono);font-size:.78rem;margin-bottom:.3rem"><i class="bi bi-calendar me-2"></i>'+e.fecha+'</p>'+durTag+(e.descripcion?'<p style="color:#4a8a4a;font-size:.95rem;margin-bottom:.8rem;margin-top:.8rem">'+e.descripcion+'</p>':'')+(tags?'<div>'+tags+'</div>':'')+'</div></div>');
+      }
     });
 
     /* ticker en tiempo real para empleos activos */
