@@ -474,10 +474,10 @@ var estudios=[
   {titulo:"Bachillerato",institucion:"IES Albalat",fecha:"2021 – 2023",descripcion:"Bachillerato en Ciencias Sociales."}
 ];
 var experiencia=[
-  {puesto:"Centers Developer",empresa:"NTT DATA, Salamanca",fecha:"01/07/2026 – ACTUALIDAD",descripcion:"Ascenso a Centers Developer. Liderazgo técnico en el desarrollo y mantenimiento de aplicaciones COBOL críticas en entorno productivo del sector asegurador.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"],ascenso:true},
-  {puesto:"Programador Junior COBOL",empresa:"NTT DATA, Salamanca",fecha:"07/01/2025 – 01/07/2026",descripcion:"Desarrollo y mantenimiento de aplicaciones COBOL en entorno productivo.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"]},
-  {puesto:"Programador COBOL – Prácticas",empresa:"Viewnext, Salamanca",fecha:"20/03/2025 – 15/06/2025",descripcion:"Desarrollo y mantenimiento de aplicaciones mainframe para Banco Santander. Trabajo con DB2, pruebas unitarias y optimización de código COBOL.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe"]},
-  {puesto:"Freelancer – Técnico de Sistemas",empresa:"Independiente",fecha:"Sep 2024 – Jun 2025",descripcion:"Instalación y configuración de sistemas Windows/Linux. Seguridad y asesoramiento técnico para PYMEs.",tecnologias:["Windows","Linux","Optimización de sistemas","Seguridad informática"]}
+  {puesto:"Centers Developer",empresa:"NTT DATA, Salamanca",fecha:"01/07/2026 – ACTUALIDAD",inicio:new Date(2026,6,1),fin:null,descripcion:"Ascenso a Centers Developer. Liderazgo técnico en el desarrollo y mantenimiento de aplicaciones COBOL críticas en entorno productivo del sector asegurador.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"],ascenso:true},
+  {puesto:"Programador Junior COBOL",empresa:"NTT DATA, Salamanca",fecha:"07/01/2025 – 01/07/2026",inicio:new Date(2025,0,7),fin:new Date(2026,6,1),descripcion:"Desarrollo y mantenimiento de aplicaciones COBOL en entorno productivo.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe","VS CODE","HOST"]},
+  {puesto:"Programador COBOL – Prácticas",empresa:"Viewnext, Salamanca",fecha:"20/03/2025 – 15/06/2025",inicio:new Date(2025,2,20),fin:new Date(2025,5,15),descripcion:"Desarrollo y mantenimiento de aplicaciones mainframe para Banco Santander. Trabajo con DB2, pruebas unitarias y optimización de código COBOL.",tecnologias:["COBOL","JCL","CICS","DB2","SQL","Mainframe"]},
+  {puesto:"Freelancer – Técnico de Sistemas",empresa:"Independiente",fecha:"Sep 2024 – Jun 2025",inicio:new Date(2024,8,1),fin:new Date(2025,5,1),descripcion:"Instalación y configuración de sistemas Windows/Linux. Seguridad y asesoramiento técnico para PYMEs.",tecnologias:["Windows","Linux","Optimización de sistemas","Seguridad informática"]}
 ];
 var certificados=[
   {nombre:"Curso de IA. De 0 a Agentes – BIG school / Jon Hernández (6h)",descripcion:"Domina la IA, gana competitividad y aprende cómo los agentes trabajan por ti. Certificado emitido el 01/09/2026.",imagen:"imgCertificados/cursoIABigSchool.png",nuevo:true},
@@ -648,13 +648,40 @@ function buildSite(){
       ec.insertAdjacentHTML('beforeend','<div class="timeline-item reveal" style="transition-delay:'+(idx*.15)+'s"><div class="timeline-content"><h4>'+e.titulo+'</h4><p style="color:var(--amber);font-family:var(--font-mono);font-size:.8rem;margin:.3rem 0"><i class="bi bi-building me-2"></i>'+e.institucion+'</p><p style="color:var(--green-dim);font-family:var(--font-mono);font-size:.78rem;margin-bottom:.8rem"><i class="bi bi-calendar me-2"></i>'+e.fecha+'</p>'+(e.descripcion?'<p style="color:#4a8a4a;font-size:.95rem">'+e.descripcion+'</p>':'')+'</div></div>');
     });
 
+    /* ── helpers duración ── */
+    function calcDur(inicio,fin){
+      var ahora=fin||new Date();
+      var ms=ahora-inicio;
+      var d=Math.floor(ms/86400000);
+      var m=Math.floor(d/30.4375);
+      var a=Math.floor(m/12); m=m%12;
+      var p=[];
+      if(a)p.push(a+(a===1?' año':' años'));
+      if(m)p.push(m+(m===1?' mes':' meses'));
+      if(!a&&!m)p.push(d+' días');
+      return p.join(', ');
+    }
+    function durStr(e){
+      if(!e.fin) return '<span class="exp-ticker" data-inicio="'+e.inicio.getTime()+'">'+calcDur(e.inicio,null)+'</span>';
+      return calcDur(e.inicio,e.fin);
+    }
+
     /* EXPERIENCIA */
     experiencia.forEach(function(e,idx){
       var tags=(e.tecnologias||[]).map(function(t){return '<span class="skill-tag skill-tag-amber">'+t+'</span>';}).join('');
       var ascensoBadge=e.ascenso?'<span style="display:inline-block;background:linear-gradient(90deg,var(--amber),#ff9a00);color:#000;font-family:var(--font-mono);font-size:.65rem;font-weight:700;letter-spacing:1px;padding:.2rem .7rem;border-radius:2px;margin-bottom:.7rem">▲ ASCENSO</span><br>':'';
       var borderStyle=e.ascenso?'border-color:rgba(255,152,0,.6);box-shadow:0 0 18px rgba(255,152,0,.2);':'';
-      xc.insertAdjacentHTML('beforeend','<div class="timeline-item reveal" style="transition-delay:'+(idx*.15)+'s"><div class="timeline-content" style="'+borderStyle+'">'+ascensoBadge+'<h4 style="'+(e.ascenso?'color:var(--amber);':'')+'">'+(e.ascenso?'⬆ ':'')+e.puesto+'</h4><p style="color:var(--amber);font-family:var(--font-mono);font-size:.8rem;margin:.3rem 0"><i class="bi bi-building me-2"></i>'+e.empresa+'</p><p style="color:var(--green-dim);font-family:var(--font-mono);font-size:.78rem;margin-bottom:.8rem"><i class="bi bi-calendar me-2"></i>'+e.fecha+'</p>'+(e.descripcion?'<p style="color:#4a8a4a;font-size:.95rem;margin-bottom:.8rem">'+e.descripcion+'</p>':'')+(tags?'<div>'+tags+'</div>':'')+'</div></div>');
+      var durTag='<span style="display:inline-block;margin-top:.4rem;font-family:var(--font-mono);font-size:.72rem;color:var(--green);letter-spacing:.5px">⏱ '+durStr(e)+(e.fin?'':' <span style="color:var(--amber)">· EN CURSO</span>')+'</span>';
+      xc.insertAdjacentHTML('beforeend','<div class="timeline-item reveal" style="transition-delay:'+(idx*.15)+'s"><div class="timeline-content" style="'+borderStyle+'">'+ascensoBadge+'<h4 style="'+(e.ascenso?'color:var(--amber);':'')+'">'+(e.ascenso?'⬆ ':'')+e.puesto+'</h4><p style="color:var(--amber);font-family:var(--font-mono);font-size:.8rem;margin:.3rem 0"><i class="bi bi-building me-2"></i>'+e.empresa+'</p><p style="color:var(--green-dim);font-family:var(--font-mono);font-size:.78rem;margin-bottom:.3rem"><i class="bi bi-calendar me-2"></i>'+e.fecha+'</p>'+durTag+(e.descripcion?'<p style="color:#4a8a4a;font-size:.95rem;margin-bottom:.8rem;margin-top:.8rem">'+e.descripcion+'</p>':'')+(tags?'<div>'+tags+'</div>':'')+'</div></div>');
     });
+
+    /* ticker en tiempo real para empleos activos */
+    setInterval(function(){
+      document.querySelectorAll('.exp-ticker').forEach(function(el){
+        var inicio=new Date(parseInt(el.dataset.inicio));
+        el.textContent=calcDur(inicio,null);
+      });
+    },60000);
 
     /* CERTIFICADOS */
     certificados.forEach(function(c,idx){
